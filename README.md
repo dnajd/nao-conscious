@@ -6,26 +6,25 @@
 
 # Features
 
-Eye contact
+Eye contact with people
 
- * sound localization
- * face tracker
+ * using the face tracker for the most basic social tactic
 
-Face recognition
- * familiarity
- * sensible greetings
- * predictability
+Face Recognition
+ * log: who, when & how many time
+ * express familiarity through warm / cold greetings based on stats
+ * even add predictability with stats; ex. someone should be here right now
 
-Word recognition
+Word Recognition
  * library of responses to build vocabulary
 
 Movement
- * random movement
- * triggered movement: time of day, events including: face recognition, sound localization, word recognition
+ * random movement to express vitality
+ * triggered movement based on: time of day, face recognition, sound localization, word recognition
 
 Probability
- * events have a probability of happening or not
- * used to decide on conflicting responses
+ * give events a probability of happening or not
+ * used to choose between multiple possible events / actions
  * used to create a sense of identity, preference, personality
 
 # Architecture
@@ -47,8 +46,7 @@ FaceRecognition (and others)
 
 Daemon
  * trigger subscribers based on cycle / last run
- * strategy: randomize or wait
- * priority: 1-10
+ * subscribers should have a strategy (randomize or wait) and maybe a priority (1-10)
 
 Logging
  * rails / REST
@@ -58,7 +56,9 @@ Vocabulary
 
 
 
---------------------------------------
+# Notes on abstract class in python
+
+```
 from abc import ABCMeta, abstractmethod
 
 class Abstract(object):
@@ -75,3 +75,4 @@ class B(Abstract):
     pass
 
 B()
+```
