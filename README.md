@@ -1,8 +1,16 @@
+# Summary
+
+Make Nao come to life through events that trigger movement and speech.
+
 # Goals
 
 * Autonomy & Sociability
 * Cute & Fun
 * Like a Pet
+
+# Project Name
+
+* marionette
 
 # Features
 
@@ -38,27 +46,29 @@ Touch
 
 # Architecture & Notes
 
-## Abstractions
+## Event Management Abstractions
 
-Deal with thread safty, modularity & event management
+Phase I. Start with providers calling subscribers directly. No thread safety.
 
-Subscribers
+Subscribers - makes actions modular
  * callback(eventName, value, subscriberIdentifier)
  * setup
  * shutdown
  * subscribers should have a strategy (randomize or wait)
  * maybe a priority (1-10)
 
-NaoEvent
+NaoqiProvider - triggered by Nao's API
  * add_subscriber
  * enable / disable callbacks
  * setup & shutdown
- * event_callback
+ * event_callback (private)
 
-DaemonEvent
- * trigger subscribers based on concerns
- * concerns would look at: time of day, last recog person, lighting, awake time
- 
+DaemonProvider - trigger by a forked background process
+ * concerns: look at time of day, last recog person, lighting, awake time, etc.
+ ** add_subscriber
+ ** enable / disable 
+ ** setup / shutdown
+ ** callback on subscribers
 
 ## Services
 
