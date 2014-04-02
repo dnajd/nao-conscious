@@ -27,9 +27,9 @@ Probability
  * used to choose between multiple possible events / actions
  * used to create a sense of identity, preference, personality
 
-# Architecture
+# Architecture & Notes
 
-## Wrappers
+## Abstractions
 
 Deal with thread safty, modularity & event management
 
@@ -47,6 +47,8 @@ FaceRecognition (and others)
 Daemon
  * trigger subscribers based on cycle / last run
  * subscribers should have a strategy (randomize or wait) and maybe a priority (1-10)
+
+## Services
 
 Logging
  * rails / REST
