@@ -1,8 +1,8 @@
 # Goals
 
-* Autonomy
-* Sociability
-* Fun
+* Autonomy & Sociability
+* Cute & Fun
+* Like a Pet
 
 # Features
 
