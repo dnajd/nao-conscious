@@ -6,26 +6,35 @@
 
 # Features
 
-Eye contact with people
+Wake up behavior
+ * knows how long he's been asleep
+ * has something to do / say about it
 
+Eye contact with people
  * using the face tracker for the most basic social tactic
 
 Face Recognition
- * log: who, when & how many time
+ * log: who, when, last view (how long ago) & how many time
  * express familiarity through warm / cold greetings based on stats
  * even add predictability with stats; ex. someone should be here right now
 
 Word Recognition
  * library of responses to build vocabulary
+ * randomize to choose between competing possible responses
 
 Movement
  * random movement to express vitality
- * triggered movement based on: time of day, face recognition, sound localization, word recognition
+ * triggered movement based on: time of day, face recognition, sound localization, word recognition, lighting in the room
 
 Probability
  * give events a probability of happening or not
  * used to choose between multiple possible events / actions
  * used to create a sense of identity, preference, personality
+ * try to not repeat itself too much through modifiers & logging
+
+Touch
+ * combo codes on touch sensors
+ * inteligent reaction to touch
 
 # Architecture & Notes
 
@@ -37,16 +46,19 @@ Subscribers
  * callback(eventName, value, subscriberIdentifier)
  * setup
  * shutdown
+ * subscribers should have a strategy (randomize or wait)
+ * maybe a priority (1-10)
 
-FaceRecognition (and others)
+NaoEvent
  * add_subscriber
- * start_callback
- * stop_callback
+ * enable / disable callbacks
+ * setup & shutdown
  * event_callback
 
-Daemon
- * trigger subscribers based on cycle / last run
- * subscribers should have a strategy (randomize or wait) and maybe a priority (1-10)
+DaemonEvent
+ * trigger subscribers based on concerns
+ * concerns would look at: time of day, last recog person, lighting, awake time
+ 
 
 ## Services
 
@@ -56,7 +68,8 @@ Logging
 Vocabulary
  * rails / REST
 
-
+Movement
+ * naoscripts that can be used
 
 # Notes on abstract class in python
 
