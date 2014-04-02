@@ -50,12 +50,14 @@ Touch
 
 Phase I. Start with providers calling subscribers directly. No thread safety.
 
-Subscribers - makes actions modular
+Subscribers - makes actions modular; ex. log an event, say something, move.
  * callback(eventName, value, subscriberIdentifier)
  * setup
  * shutdown
- * subscribers should have a strategy (randomize or wait)
- * maybe a priority (1-10)
+ * base subscriber class that...
+ ** subscribers should have a strategy (randomize or wait)
+ ** maybe a priority (1-10)
+ ** cool down probability
 
 NaoqiProvider - triggered by Nao's API
  * add_subscriber
@@ -70,16 +72,16 @@ DaemonProvider - trigger by a forked background process
  ** setup / shutdown
  ** callback on subscribers
 
-## Services
+## Required Services
 
 Logging
- * rails / REST
+ * REST service that can store event history
 
 Vocabulary
- * rails / REST
+ * vocab word and response; either text or naoscript
 
 Movement
- * naoscripts that can be used
+ * Naoscripts that can be triggered by a naoscript subscriber
 
 # Notes on abstract class in python
 
