@@ -1,18 +1,67 @@
-# Summary
+# Nao Event Management
 
-Make Nao come to life through events that trigger movement and speech.
+Event management system for writing code as subscribers and registering them with event providers.
 
-# Goals
 
-* Autonomy & Sociability
-* Friendly
-* Fun
+# Abstractions
+
+Phase I. Start with providers calling subscribers directly. No thread safety.
+
+Subscribers - makes actions modular; ex. log an event, say something, move.
+
+* callback(eventName, value, subscriberIdentifier)
+* setup
+* shutdown
+* base subscriber class that...
+    * subscribers should have a strategy (randomize or wait)
+    * maybe a priority (1-10)
+    * cool down probability
+
+NaoqiProvider - wrapper for naoqi events
+
+* add_subscriber
+* enable / disable callbacks
+* setup & shutdown
+* event_callback (private)
+
+DaemonProvider - forked background process; nao conciousness
+
+* Concerns - look at time of day, last recog person, lighting, awake time, etc.
+    * add_subscriber
+    * enable / disable 
+    * setup / shutdown
+    * callback on subscribers
+
+Command Queue
+ * Providers hand subscribers over to the command queue to be executed
+ * Command Queue figures out blocking vs non-blocking
+ * Also can contain nao's state or anything we want to remember out what's going on with nao
+
+# Look at Wanderer
+
+https://github.com/davesnowdon/nao-wanderer/blob/master/wanderer/src/main/python/wanderer/wanderer.py
+
+* Planner
+* PlanExecutor
+
+https://github.com/davesnowdon/nao-wanderer/blob/master/wanderer/src/main/python/wanderer/event.py
+
+
+# OLD OLD OLD
+
+The things below belogn in another project
+
+Make nao seem alive
+
+* Focus on unpredictability & randomness; the essence of life
+* With a hint of logic
+* Architecture for experimenting with autonomy
 
 # Project Name
 
 * marionette
 
-# Features
+# Idea's
 
 Wake up behavior
 
@@ -51,36 +100,11 @@ Touch
 * combo codes on touch sensors
 * inteligent reaction to touch
 
+Memory
+
+* talk about what just happened; hey joe, john was just here 5 minutes ago
+
 # Architecture & Notes
-
-## Event Management Abstractions
-
-Phase I. Start with providers calling subscribers directly. No thread safety.
-
-Subscribers - makes actions modular; ex. log an event, say something, move.
-
-* callback(eventName, value, subscriberIdentifier)
-* setup
-* shutdown
-* base subscriber class that...
-    * subscribers should have a strategy (randomize or wait)
-    * maybe a priority (1-10)
-    * cool down probability
-
-NaoqiProvider - triggered by Nao's API
-
-* add_subscriber
-* enable / disable callbacks
-* setup & shutdown
-* event_callback (private)
-
-DaemonProvider - trigger by a forked background process
-
-* concerns: look at time of day, last recog person, lighting, awake time, etc.
-    * add_subscriber
-    * enable / disable 
-    * setup / shutdown
-    * callback on subscribers
 
 ## Required Services
 
