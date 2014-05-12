@@ -1,4 +1,15 @@
-## Consider
+# Subscribers
+
+Subscribers could have....
+* subscribers should have a strategy (randomize or wait)
+* maybe a priority (1-10)
+* cool down probability
+
+Daemon providers could
+* be forked background process
+* concerned with: look at time of day, last recog person, lighting, awake time, etc.
+
+## Command Queue
 
 Consider having a Command Queue
  * Providers hand subscribers over to the command queue to be executed

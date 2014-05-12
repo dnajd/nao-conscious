@@ -16,7 +16,7 @@ class LaughSubscriber(object):
 
 
     # CALLBACKS
-    def callback(self, dataName, value, message):
+    def callback(self, eventName, value, subscriberIdentifier):
         self.nao.log('class=LaughSubscriber|method=callback')
         self.nao.say('ha ha')
         self.nao.wait(1)
@@ -26,6 +26,6 @@ class LaughSubscriber(object):
         self.nao.log('class=LaughSubscriber|method=setup')
             
 
-    def teardown(self):
+    def tear_down(self):
         self.nao.log('class=LaughSubscriber|method=teardown')
         

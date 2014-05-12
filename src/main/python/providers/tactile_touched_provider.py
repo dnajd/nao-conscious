@@ -28,7 +28,7 @@ class TactileTouchedProvider(object):
         self.memory.subscribeToEvent('FrontTactilTouched', self.event_callback)
         self.nao.log('class=TactilTouchedProvider|method=setup')  
 
-    def teardown(self):
+    def tear_down(self):
         self.memory.unsubscribeToEvent('FrontTactilTouched')  
         self.nao.log('class=TactilTouchedProvider|method=teardown')  
 
