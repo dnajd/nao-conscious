@@ -8,8 +8,9 @@ from __future__ import print_function
 from naoutil import broker
 import naoutil.naoenv as naoenv
 import naoutil.memory as memory
-
 from fluentnao.nao import Nao
+
+from subscribers.laugh import Laugh
 
 #########################
 # SETUP
@@ -25,11 +26,6 @@ env = naoenv.make_environment(None)
 log = lambda msg: print(msg) 				# lambda for loggin to the console
 nao = Nao(env, log)
 
-# init
-nao.say('I think')
-nao.wait(.5)
-nao.say('therefore')
-nao.wait(.5)
-nao.say('I')
-nao.wait(.1)
-nao.say('am')
+# subscriber
+laugh_subcriber = Laugh(nao, log)
+laugh_subcriber.callback('','','')
