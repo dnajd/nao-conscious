@@ -1,12 +1,11 @@
 # Nao Conscious
-Conscious: aware of and responding to one's surroundings; awake.
 
-Built an event management system where subscribers are registered with event providers.
+Have Nao seem conscious. Meaning aware of and responding to one's surroundings; awake.
 
 
 # Abstractions
 
-Phase I. Start with providers calling subscribers directly. No thread safety.
+Built an event management system where subscribers are registered with event providers.
 
 ## Subscribers
 
