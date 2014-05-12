@@ -1,6 +1,7 @@
-# Nao Event Management
+# Nao Conscious
+Conscious: aware of and responding to one's surroundings; awake.
 
-Event management system for writing code as subscribers and registering them with event providers.
+Built an event management system where subscribers are registered with event providers.
 
 
 # Abstractions
