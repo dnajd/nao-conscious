@@ -16,6 +16,7 @@ from fluentnao.nao import Nao
 # nao consious
 from subscribers.laugh_subscriber import LaughSubscriber
 from providers.tactile_touched_provider import TactileTouchedProvider
+from providers.time_provider import TimeProvider
 
 
 #########################
@@ -37,6 +38,7 @@ nao = Nao(env, log)
 # Nao Consious
 
 laugh_subscriber = LaughSubscriber(nao)
+time_provider = TimeProvider(nao)
 tactile_provider = TactileTouchedProvider(nao, memory)
 
 
@@ -44,9 +46,14 @@ tactile_provider = TactileTouchedProvider(nao, memory)
 # main.py
 
 def shutdown():
-	tactile_provider.teardown()	
+	tactile_provider.tear_down()	
+	time_provider.tear_down()
 
 def setup():
+	
+	time_provider.add_subscriber(laugh_subscriber)
+	time_provider.setup()
+
 	tactile_provider.add_subscriber(laugh_subscriber)
 	tactile_provider.setup()
 
