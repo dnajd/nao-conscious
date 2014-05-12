@@ -19,6 +19,7 @@ class LaughSubscriber(object):
     def callback(self, dataName, value, message):
         self.nao.log('class=LaughSubscriber|method=callback')
         self.nao.say('ha ha')
+        self.nao.wait(1)
 
 
     def setup(self):

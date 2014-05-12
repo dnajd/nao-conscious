@@ -19,7 +19,7 @@ from providers.tactile_touched_provider import TactileTouchedProvider
 
 # Broker (must come first)
 #naoIp = "nao.local"
-naoIp = "192.168.2.15"
+naoIp = "192.168.2.16"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 # FluentNao
@@ -27,11 +27,18 @@ env = naoenv.make_environment(None)
 log = lambda msg: print(msg) 				# lambda for loggin to the console
 nao = Nao(env, log)
 
-# subscriber
-laugh = LaughSubscriber(nao)
-laugh.callback('','','')
+# subscribers
+laugh_subscriber = LaughSubscriber(nao)
 
-# provider
-tactile_touched = TactileTouchedProvider(nao, memory)
-tactile_touched.add_subscriber(laugh)
-tactile_touched.setup()
+# providers
+tactile_provider = TactileTouchedProvider(nao, memory)
+
+
+def shutdown():
+	tactile_provider.teardown()	
+
+def setup():
+	tactile_provider.add_subscriber(laugh_subscriber)
+	tactile_provider.setup()
+
+setup()
