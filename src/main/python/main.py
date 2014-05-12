@@ -10,7 +10,7 @@ import naoutil.naoenv as naoenv
 import naoutil.memory as memory
 from fluentnao.nao import Nao
 
-from subscribers.laugh import Laugh
+from subscribers.laugh_subscriber import LaughSubscriber
 
 #########################
 # SETUP
@@ -27,5 +27,5 @@ log = lambda msg: print(msg) 				# lambda for loggin to the console
 nao = Nao(env, log)
 
 # subscriber
-laugh_subcriber = Laugh(nao, log)
-laugh_subcriber.callback('','','')
+laugh = LaughSubscriber(nao, log)
+laugh.callback('','','')
