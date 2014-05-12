@@ -11,6 +11,7 @@ import naoutil.memory as memory
 from fluentnao.nao import Nao
 
 from subscribers.laugh_subscriber import LaughSubscriber
+from providers.tactile_touched_provider import TactileTouchedProvider
 
 #########################
 # SETUP
@@ -27,5 +28,10 @@ log = lambda msg: print(msg) 				# lambda for loggin to the console
 nao = Nao(env, log)
 
 # subscriber
-laugh = LaughSubscriber(nao, log)
+laugh = LaughSubscriber(nao)
 laugh.callback('','','')
+
+# provider
+tactile_touched = TactileTouchedProvider(nao, memory)
+tactile_touched.add_subscriber(laugh)
+tactile_touched.setup()

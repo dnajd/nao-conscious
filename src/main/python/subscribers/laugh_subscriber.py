@@ -9,22 +9,22 @@ import random
 
 class LaughSubscriber(object):
 
-    def __init__(self, nao, log):
+    def __init__(self, nao):
 
         self.nao = nao 
-        self.log = log
+        self.nao.log('class=LaughSubscriber|method=__init__')   
 
 
     # CALLBACKS
     def callback(self, dataName, value, message):
-        self.log('laugh.py callback')
+        self.nao.log('class=LaughSubscriber|method=callback')
         self.nao.say('ha ha')
 
 
     def setup(self):
-        self.log('laugh.py setup')
+        self.nao.log('class=LaughSubscriber|method=setup')
             
 
     def teardown(self):
-        self.log('laugh.py teardown')
+        self.nao.log('class=LaughSubscriber|method=teardown')
         
