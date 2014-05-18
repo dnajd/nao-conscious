@@ -4,7 +4,6 @@ Created on 11 May 2014
 @author: Don Najd
 @description: Nao will simply laugh
 '''
-import random
 
 class LaughSubscriber(object):
 

@@ -13,6 +13,8 @@ class SleepySubscriber(object):
         self.nao = nao 
         self.nao.log('class=SleepySubscriber|method=__init__')   
 
+        self.sleepy_time = 1.0
+
 
     def callback(self, eventName, value, subscriberIdentifier):
 
@@ -22,15 +24,20 @@ class SleepySubscriber(object):
         if eventName == 'time_tracker':
 
             # time elapsed in sec
-            start_datetime = value['start_datetime']
-            elapsed_sec = round(float(value['elapsed_sec']))
+            #start_datetime = value['start_datetime']
+            elapsed_min = round(float(value['elapsed_min']))
 
-            # I am sleepy
-            if elapsed_sec == 5.0:
-                self.nao.say('only five seconds and I am already sleepy')
+            
+            if elapsed_min == self.sleepy_time:
 
-            # log
-            #self.nao.log('class=SleepySubscriber|method=callback|start_datetime={0}|elapsed_sec={1}'.format(start_datetime, str(elapsed_sec)))
+                # I am sleepy
+                self.nao.say('only {0} minutes awake and I am already sleepy'.format(self.sleepy_time))
+
+                # increment sleepy time
+                self.sleepy_time += random.randint(10, 60)
+
+                # log
+                self.nao.log('class=SleepySubscriber|method=callback|next_sleepy_time={0}'.format(self.sleepy_time))
 
 
     def setup(self):

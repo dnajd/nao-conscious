@@ -16,6 +16,8 @@ from fluentnao.nao import Nao
 # nao consious
 from subscribers.laugh_subscriber import LaughSubscriber
 from subscribers.sleepy_subscriber import SleepySubscriber
+from subscribers.look_around_subscriber import LookAroundSubscriber
+
 
 from providers.tactile_touched_provider import TactileTouchedProvider
 from providers.time_provider import TimeProvider
@@ -43,6 +45,7 @@ nao = Nao(env, log)
 # subscribers
 laugh_subscriber = LaughSubscriber(nao)
 sleepy_subscriber = SleepySubscriber(nao)
+look_around_subscriber = LookAroundSubscriber(nao)
 
 # providers
 time_provider = TimeProvider(nao)
@@ -60,11 +63,12 @@ def teardown():
 
 def setup():
 	
-	# time
+	# time: sleepy & look around
 	time_provider.add_subscriber(sleepy_subscriber)
+	time_provider.add_subscriber(look_around_subscriber)
 	time_provider.setup()
 
-	# tactile
+	# tactile: laugh
 	tactile_provider.add_subscriber(laugh_subscriber)
 	tactile_provider.setup()
 
