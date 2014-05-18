@@ -4,7 +4,6 @@ Created on 11 May 2014
 @author: Don Najd
 @description: Nao will simply laugh
 '''
-from datetime import datetime, timedelta
 import random
 
 class LaughSubscriber(object):
@@ -15,11 +14,13 @@ class LaughSubscriber(object):
         self.nao.log('class=LaughSubscriber|method=__init__')   
 
 
-    # CALLBACKS
     def callback(self, eventName, value, subscriberIdentifier):
+
         self.nao.log('class=LaughSubscriber|method=callback')
+
+        # laugh
         self.nao.say('ha ha')
-        self.nao.wait(1)
+        self.nao.wait(2)
 
 
     def setup(self):

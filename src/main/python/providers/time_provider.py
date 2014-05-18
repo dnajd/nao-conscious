@@ -6,7 +6,8 @@ Created on 11 May 2014
 '''
 
 import thread
-import time
+from datetime import datetime
+from time import sleep
 
 class TimeProvider(object):
 
@@ -28,7 +29,10 @@ class TimeProvider(object):
 
     def setup(self):
 
-        # start thread
+        # tract start datetime
+        self.start_datetime = datetime.now()
+
+        # run thread
         self.running = True
         args = self,
         thread.start_new_thread(self.time_tracker, args)
@@ -36,7 +40,9 @@ class TimeProvider(object):
         # log
         self.nao.log('class=TimeProvider|method=setup')  
 
+
     def tear_down(self):
+
         # stop thread
         self.running = False
         self.nao.log('class=TimeProvider|method=teardown')  
@@ -46,9 +52,27 @@ class TimeProvider(object):
 
         while time_provider.running: 
 
-            # wait 5 seconds
-            time.sleep(5) 
+            # time elapsed
+            elapsed = self.start_datetime - datetime.now()
+            elapsed_sec = abs(elapsed.total_seconds())
+            elapsed_min = abs(divmod(elapsed_sec, 60)[0])
+            elapsed_hr = abs(divmod(elapsed_min, 60)[0])
+            elapsed_days = abs(divmod(elapsed_hr, 24)[0])
+            
+            # callback args
+            event_name = 'time_tracker'
+            value = {
+                'start_datetime': str(self.start_datetime), 
+                'elapsed_sec': str(elapsed_sec),
+                'elapsed_min': str(elapsed_min),
+                'elapsed_hr': str(elapsed_hr),
+                'elapsed_days': str(elapsed_days)
+            }
+            subscriberIdentifier = ''
 
             # run subscribers
             for s in self.subscribers:
-                s.callback('', '', '')
+                s.callback(event_name, value, subscriberIdentifier)
+
+            # wait a second
+            sleep(1) 
