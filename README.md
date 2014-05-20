@@ -3,6 +3,11 @@
 Have Nao seem conscious. Meaning aware of and responding to one's surroundings; awake.
 
 
+# Requirements
+
+* python-pip
+* pip install mock
+
 # Abstractions
 
 Built an event management system where subscribers are registered with event providers.

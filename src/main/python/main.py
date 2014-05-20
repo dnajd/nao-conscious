@@ -1,24 +1,24 @@
 '''
 Created on 1 April 2014
-@author: don Najd
+@author: Don Najd
 @description: Nao will be Sociable
 '''
 
 # python
 from __future__ import print_function
 
-# fluent nao
+# naoutil & fluentnao
 from naoutil import broker
 import naoutil.naoenv as naoenv
 import naoutil.memory as memory
 from fluentnao.nao import Nao
 
-# nao consious
+# subscribers
 from subscribers.laugh_subscriber import LaughSubscriber
 from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
 
-
+# providers
 from providers.tactile_touched_provider import TactileTouchedProvider
 from providers.time_provider import TimeProvider
 
