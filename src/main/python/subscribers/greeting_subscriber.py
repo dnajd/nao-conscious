@@ -57,7 +57,7 @@ class GreetingSubscriber(object):
         self.nao.log('class=GreetSubscriber|method=teardown')
 
 
-    # Greeting Logic
+    # greeting
     def rand_greeting(self):
         
         i = random.randint(0,len(self.greetings))
@@ -65,21 +65,14 @@ class GreetingSubscriber(object):
 
     def play_greeting(self, person):
 
-        # log greeting
+        # track greeting
         person.track_greeting()
-        self.nao.wait(1)
 
         # do greeting
-        #self.nao.naoscript.get(35)
-        #self.nao.go()
         self.nao.say(self.rand_greeting() + ' ' + person.name)
-        
-        # sit & relax
-        #self.nao.sit()
 
 
-#############################
-# Person tracking
+# Tracking
 class Person(object):
 
     def __init__(self, name):

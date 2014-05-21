@@ -73,7 +73,7 @@ def setup():
 	
 	# time: sleepy & look around
 	time_provider.add_subscriber(sleepy_subscriber)
-	#time_provider.add_subscriber(look_around_subscriber)
+	time_provider.add_subscriber(look_around_subscriber)
 	time_provider.setup()
 
 	# tactile: laugh
