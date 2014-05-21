@@ -87,6 +87,8 @@ def setup():
 setup()
 
 
-# facetracker
-nao.env.add_proxy("ALFaceDetection")   
-face_detect = nao.env.proxies["ALFaceDetection"] 
+def learn_face(name):
+	# facetracker
+	nao.env.add_proxy("ALFaceDetection")   
+	face_detect = nao.env.proxies["ALFaceDetection"] 
+	face_detect.learnFace(name)
