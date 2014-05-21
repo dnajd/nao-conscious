@@ -19,7 +19,7 @@ from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
 
 # providers
-from providers.tactile_touched_provider import TactileTouchedProvider
+from providers.touch_provider import TouchProvider
 from providers.time_provider import TimeProvider
 
 
@@ -49,7 +49,11 @@ look_around_subscriber = LookAroundSubscriber(nao)
 
 # providers
 time_provider = TimeProvider(nao)
-tactile_provider = TactileTouchedProvider(nao, memory)
+touch_provider = TouchProvider(nao, memory, 'FrontTactilTouched')
+
+# Touch Provider Events:
+# RightBumperPressed, LeftBumperPressed, ChestButtonPressed, FrontTactilTouched
+# MiddleTactilTouched, RearTactilTouched, HandRightBackTouched, HandRightLeftTouched
 
 
 #########################
@@ -58,7 +62,7 @@ tactile_provider = TactileTouchedProvider(nao, memory)
 def teardown():
 
 	# teardown
-	tactile_provider.tear_down()	
+	touch_provider.tear_down()	
 	time_provider.tear_down()
 
 def setup():
@@ -69,7 +73,7 @@ def setup():
 	time_provider.setup()
 
 	# tactile: laugh
-	tactile_provider.add_subscriber(laugh_subscriber)
-	tactile_provider.setup()
+	touch_provider.add_subscriber(laugh_subscriber)
+	touch_provider.setup()
 
 setup()

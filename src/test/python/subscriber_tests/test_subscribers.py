@@ -21,7 +21,7 @@ from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
 
 # providers
-from providers.tactile_touched_provider import TactileTouchedProvider
+from providers.touch_provider import TouchProvider
 from providers.time_provider import TimeProvider
 
 class TestSubscribers(unittest.TestCase):
