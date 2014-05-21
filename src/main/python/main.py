@@ -17,17 +17,19 @@ from fluentnao.nao import Nao
 from subscribers.laugh_subscriber import LaughSubscriber
 from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
+from subscribers.greeting_subscriber import GreetingSubscriber
 
 # providers
 from providers.touch_provider import TouchProvider
 from providers.time_provider import TimeProvider
+from providers.face_recog_provider import FaceRecogProvider
 
 
 
 #########################
 # Broker
 
-naoIp = "192.168.2.16" #"nao.local"
+naoIp = "192.168.2.13" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
@@ -46,34 +48,45 @@ nao = Nao(env, log)
 laugh_subscriber = LaughSubscriber(nao)
 sleepy_subscriber = SleepySubscriber(nao)
 look_around_subscriber = LookAroundSubscriber(nao)
+greeting_subscriber = GreetingSubscriber(nao)
 
 # providers
 time_provider = TimeProvider(nao)
 touch_provider = TouchProvider(nao, memory, 'FrontTactilTouched')
-
-# Touch Provider Events:
+face_recog_provider = FaceRecogProvider(nao, memory)
 # RightBumperPressed, LeftBumperPressed, ChestButtonPressed, FrontTactilTouched
 # MiddleTactilTouched, RearTactilTouched, HandRightBackTouched, HandRightLeftTouched
+
 
 
 #########################
 # main.py
 
-def teardown():
+def tear_down():
 
 	# teardown
 	touch_provider.tear_down()	
 	time_provider.tear_down()
+	face_recog_provider.tear_down()
 
 def setup():
 	
 	# time: sleepy & look around
 	time_provider.add_subscriber(sleepy_subscriber)
-	time_provider.add_subscriber(look_around_subscriber)
+	#time_provider.add_subscriber(look_around_subscriber)
 	time_provider.setup()
 
 	# tactile: laugh
 	touch_provider.add_subscriber(laugh_subscriber)
 	touch_provider.setup()
 
+	# face recog
+	face_recog_provider.add_subscriber(greeting_subscriber)
+	face_recog_provider.setup()
+
 setup()
+
+
+# facetracker
+nao.env.add_proxy("ALFaceDetection")   
+face_detect = nao.env.proxies["ALFaceDetection"] 

@@ -19,6 +19,7 @@ from fluentnao.nao import Nao
 from subscribers.laugh_subscriber import LaughSubscriber
 from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
+from subscribers.greeting_subscriber import GreetingSubscriber
 
 # providers
 from providers.touch_provider import TouchProvider
@@ -29,9 +30,10 @@ class TestSubscribers(unittest.TestCase):
 	def setUp(self):
 
 		# setup env
-		self.env = Mock()
+		self.env = MagicMock()
 		self.log = lambda msg: print(msg)
-		self.nao = Mock()
+		self.nao = MagicMock()
+		#self.nao.log = self.log
 
 	def testEnvAndMocking(self):
 
@@ -50,22 +52,49 @@ class TestSubscribers(unittest.TestCase):
 	def testLaughSubscriber(self):
 
 		# subscribers
-		laugh_subscriber = LaughSubscriber(self.nao)
-		laugh_subscriber.callback('','','')
+		subscriber = LaughSubscriber(self.nao)
+		subscriber.callback('', '', '')
 
 		# assert callback executed say
 		self.nao.say.assert_called_once_with('ha ha')
 
 	def testSleepySubscriber(self):
 
-		sleepy_subscriber = SleepySubscriber(self.nao)
-		sleepy_subscriber.callback('','','')
+		# mock value
+		value = MagicMock()
+		value['elapsed_min'] = '10.0'
+
+		# event name
+		eventName = 'time_tracker'
+
+		subscriber = SleepySubscriber(self.nao)
+		subscriber.callback(eventName, value, '')
 
 
 	def testLookAroundSubscriber(self):
+
+		# mock value
+		value = MagicMock()
+		value['elapsed_sec'] = '10.0'
 		
-		look_around_subscriber = LookAroundSubscriber(self.nao)
-		look_around_subscriber.callback('','','')
+		# event name
+		eventName = 'time_tracker'
+
+		subscriber = LookAroundSubscriber(self.nao)
+		subscriber.callback(eventName, value, '')
+
+
+	def testGreetingSubscriber(self):
+		
+		# mock value
+		value = MagicMock()
+		value[1][1][1][0] = 'don'
+
+		# test subscriber
+		subscriber = GreetingSubscriber(self.nao)
+		subscriber.callback('', value, '')
+
+		#self.nao.say.assert_any_call()
 
 
 if __name__ == "__main__":
