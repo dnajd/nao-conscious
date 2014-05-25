@@ -60,15 +60,9 @@ face_recog_provider = FaceRecogProvider(nao, memory)
 
 
 #########################
-# main.py
+# HELPERS
 
-def tear_down(dataName, value, message):
-
-	# teardown
-	touch_provider.tear_down()	
-	time_provider.tear_down()
-	face_recog_provider.tear_down()
-
+# setup all providers
 def setup():
 	
 	# time: sleepy & look around
@@ -87,6 +81,17 @@ def setup():
 setup()
 
 
+# shutdown with rear tactil
+def tear_down(dataName, value, message):
+
+	# teardown
+	touch_provider.tear_down()	
+	time_provider.tear_down()
+	face_recog_provider.tear_down()
+memory.subscribeToEvent('RearTactilTouched', tear_down)
+
+
+# learn face helper
 def learn_face(name):
 	# facetracker
 	nao.env.add_proxy("ALFaceDetection")   
@@ -94,4 +99,4 @@ def learn_face(name):
 	face_detect.learnFace(name)
 
 
-memory.subscribeToEvent('RearTactilTouched', tear_down)
+
