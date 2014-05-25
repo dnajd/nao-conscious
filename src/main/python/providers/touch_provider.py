@@ -16,6 +16,7 @@ class TouchProvider(object):
         # args
         self.nao = nao 
         self.memory = memory
+        self.eventName = eventName
 
         # provider properties
         self.running = False
@@ -29,8 +30,8 @@ class TouchProvider(object):
         self.nao.log('class=TouchedProvider|method=add_subscriber')  
 
     def setup(self):
-        self.memory.subscribeToEvent('FrontTactilTouched', self.event_callback)
-        self.nao.log('class=TouchedProvider|method=setup')  
+        self.memory.subscribeToEvent(self.eventName, self.event_callback)
+        self.nao.log('class=TouchedProvider|method=setup|eventName=' + self.eventName)  
 
     def tear_down(self):
         self.memory.unsubscribeToEvent('FrontTactilTouched')  

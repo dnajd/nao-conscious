@@ -2,7 +2,7 @@
 Created on 17 May 2014
 
 @author: Don Najd
-@description: Nao will get sleepy after a while
+@description: Nao will look around at random
 '''
 import random
 
@@ -25,7 +25,7 @@ class LookAroundSubscriber(object):
             elapsed_sec = round(float(value['elapsed_sec']))
 
             # chance
-            chance = random.randint(1,10)
+            chance = random.randint(1,30)
             if random.randint(1,chance) == 1:
 
                 # offset and duration

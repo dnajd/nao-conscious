@@ -29,7 +29,7 @@ from providers.face_recog_provider import FaceRecogProvider
 #########################
 # Broker
 
-naoIp = "192.168.2.17" #"nao.local"
+naoIp = "192.168.2.13" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
@@ -62,7 +62,7 @@ face_recog_provider = FaceRecogProvider(nao, memory)
 #########################
 # main.py
 
-def tear_down():
+def tear_down(dataName, value, message):
 
 	# teardown
 	touch_provider.tear_down()	
@@ -92,3 +92,6 @@ def learn_face(name):
 	nao.env.add_proxy("ALFaceDetection")   
 	face_detect = nao.env.proxies["ALFaceDetection"] 
 	face_detect.learnFace(name)
+
+
+memory.subscribeToEvent('RearTactilTouched', tear_down)
