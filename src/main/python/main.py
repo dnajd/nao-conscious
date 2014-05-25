@@ -29,7 +29,7 @@ from providers.face_recog_provider import FaceRecogProvider
 #########################
 # Broker
 
-naoIp = "192.168.2.13" #"nao.local"
+naoIp = "192.168.2.17" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
