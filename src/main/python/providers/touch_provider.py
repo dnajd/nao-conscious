@@ -37,10 +37,10 @@ class TouchProvider(object):
         self.memory.unsubscribeToEvent('FrontTactilTouched')  
         self.nao.log('class=TouchedProvider|method=teardown')  
 
-    def event_callback(self, dataName, value, message): 
+    def event_callback(self, naoqi_dataName, naoqi_value, naoqi_message): 
 
         # control down
-        if value==1 and self.running == False:
+        if naoqi_value==1 and self.running == False:
             
             # status
             self.running = True
@@ -48,7 +48,7 @@ class TouchProvider(object):
             
             # call subscribers
             for s in self.subscribers:
-                s.callback(dataName, value, message)
+                s.callback(naoqi_dataName, naoqi_value, naoqi_message)
 
             self.nao.log('class=TouchedProvider|method=event_callback')  
             self.running = False 

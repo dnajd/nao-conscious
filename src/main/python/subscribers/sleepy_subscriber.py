@@ -31,7 +31,7 @@ class SleepySubscriber(object):
             if elapsed_min == self.sleepy_time:
 
                 # I am sleepy
-                self.nao.say('we have been working for an hour. I would like to take a nap'))
+                self.nao.say('we have been working for an hour. I would like to take a nap')
 
                 # log
                 self.nao.log('class=SleepySubscriber|method=callback')
