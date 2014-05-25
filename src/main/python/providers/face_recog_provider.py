@@ -51,7 +51,6 @@ class FaceRecogProvider(object):
       
         # status
         self.running = True
-        # happens too often to log
         #self.nao.log('class=FaceRecogProvider|method=event_callback|action=call_subscribers')  
         
         # get nane
