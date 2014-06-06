@@ -50,5 +50,4 @@ class TouchProvider(object):
             for s in self.subscribers:
                 s.callback(naoqi_dataName, naoqi_value, naoqi_message)
 
-            self.nao.log('class=TouchedProvider|method=event_callback')  
             self.running = False 

@@ -22,16 +22,17 @@ class GreetingSubscriber(object):
         # name?
         if 'name' in value:
             name = value['name']
-            self.nao.log('class=GreetSubscriber|method=callback|name=' + name)
+            if len(name) > 0:
+                self.nao.log('class=GreetSubscriber|method=callback|name=' + name)
 
-            # person
-            if 'person' in value:
-                person = value['person']
+                # person
+                if 'person' in value:
+                    person = value['person']
 
-                # greet
-                if person.recognize_count==1 or person.recog_more_than_mins(5):
-                    person.count_this_greeting()
-                    self.nao.say(self.rand_greeting() + ' ' + person.name)
+                    # greet
+                    if person.recognize_count==1 or person.recog_more_than_mins(5):
+                        person.count_this_greeting()
+                        self.nao.say(self.rand_greeting() + ' ' + person.name)
 
 
     def setup(self):

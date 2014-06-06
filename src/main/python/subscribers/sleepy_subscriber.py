@@ -13,7 +13,8 @@ class SleepySubscriber(object):
         self.nao = nao 
         self.nao.log('class=SleepySubscriber|method=__init__')   
 
-        self.sleepy_time = 60.0
+        self.sleepy_time = 10.0
+
 
 
     def callback(self, eventName, value, subscriberIdentifier):
@@ -30,8 +31,14 @@ class SleepySubscriber(object):
             
             if elapsed_min == self.sleepy_time:
 
-                # I am sleepy
-                self.nao.say('we have been working for an hour. I would like to take a nap')
+                if self.sleepy_time == 2.0:
+                    self.nao.say('is someone going to play with me')
+                else:
+                    # I am sleepy
+                    self.nao.say('I would like to take a nap')
+
+                # increment the sleepy time
+                self.sleepy_time += 10.0
 
                 # log
                 self.nao.log('class=SleepySubscriber|method=callback')

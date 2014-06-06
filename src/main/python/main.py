@@ -29,7 +29,7 @@ from providers.face_recog_provider import FaceRecogProvider
 #########################
 # Broker
 
-naoIp = "192.168.2.13" #"nao.local"
+naoIp = "192.168.2.8" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
@@ -66,13 +66,13 @@ face_recog_provider = FaceRecogProvider(nao, memory)
 def setup():
 	
 	# time: sleepy & look around
-	#time_provider.add_subscriber(sleepy_subscriber)
-	#time_provider.add_subscriber(look_around_subscriber)
-	#time_provider.setup()
+	time_provider.add_subscriber(sleepy_subscriber)
+	time_provider.add_subscriber(look_around_subscriber)
+	time_provider.setup()
 
 	# tactile: laugh
-	#touch_provider.add_subscriber(laugh_subscriber)
-	#touch_provider.setup()
+	touch_provider.add_subscriber(laugh_subscriber)
+	touch_provider.setup()
 
 	# face recog
 	face_recog_provider.add_subscriber(greeting_subscriber)
@@ -88,6 +88,7 @@ def tear_down(dataName, value, message):
 	touch_provider.tear_down()	
 	time_provider.tear_down()
 	face_recog_provider.tear_down()
+	
 memory.subscribeToEvent('RearTactilTouched', tear_down)
 
 

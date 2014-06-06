@@ -20,6 +20,7 @@ from subscribers.laugh_subscriber import LaughSubscriber
 from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
 from subscribers.greeting_subscriber import GreetingSubscriber
+from subscribers.star_trek_subscriber import StarTrekSubscriber
 
 # providers
 from providers.touch_provider import TouchProvider
@@ -94,8 +95,19 @@ class TestSubscribers(unittest.TestCase):
 		subscriber = GreetingSubscriber(self.nao)
 		subscriber.callback('', value, '')
 
-		#self.nao.say.assert_any_call()
+
+
+	def testStarTrekSubscriber(self):
+		
+		# mock value
+		value = MagicMock()
+		dict({ 'phasers': 90 })
+
+		# test subscriber
+		subscriber = StarTrekSubscriber(self.nao)
+		subscriber.callback('', value, '')
 
 
 if __name__ == "__main__":
     unittest.main()
+

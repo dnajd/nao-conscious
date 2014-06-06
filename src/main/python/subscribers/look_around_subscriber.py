@@ -25,13 +25,13 @@ class LookAroundSubscriber(object):
             elapsed_sec = round(float(value['elapsed_sec']))
 
             # chance
-            chance = random.randint(1,30)
+            chance = random.randint(1,300)
             if random.randint(1,chance) == 1:
 
                 # offset and duration
                 horz_offset = random.randint(-18,18)
                 vert_offset = random.randint(-10,10)
-                duration = random.uniform(.5, 1.5)
+                duration = random.uniform(.5, 2)
 
                 # move head
                 self.nao.head.forward(duration,horz_offset)

@@ -37,6 +37,8 @@ class FaceRecogProvider(object):
 
         # face track
         self.nao.env.motion.setStiffnesses("Head", 1.0)
+
+        # make time based face tracker
         #self.facetracker.startTracker()    
 
     def tear_down(self):
