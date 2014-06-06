@@ -101,7 +101,7 @@ class TestSubscribers(unittest.TestCase):
 		
 		# mock value
 		value = MagicMock()
-		dict({ 'phasers': 90 })
+		value = dict({ 'phasers': 0.50, 'comander data': 0.10 })
 
 		# test subscriber
 		subscriber = StarTrekSubscriber(self.nao)

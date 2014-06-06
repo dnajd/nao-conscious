@@ -13,38 +13,40 @@ class StarTrekSubscriber(object):
 
         self.nao = nao 
         self.nao.log('class=StarTrekSubscriber|method=__init__')
-        self.vocab = ['comander data', 'phasers', 'tractor beam', 'hailing', 'torpedo', 'shields']
+        self.vocab = ['data', 'phasers', 'tractor', 'hailing', 'torpedo', 'shields']
 
+    def test_word(self, dict, key, word):
+
+        t = 0.44 # confidence
+        if key == word and dict[key] > t:
+            return True
+        return False
 
     def callback(self, eventName, value, subscriberIdentifier):
 
         self.nao.log('class=StarTrekSubscriber|method=callback|value=' + str(value))
 
+        # get key with most confident match
         d = value
-        t = 0.48
-
-        key = 'comander data'
-        if key in d and d[key] > t:
+        key = max(d, key=d.get)
+        
+        # test words
+        if self.test_word(d, key, 'data'):
             self.nao.say('i am commander data')
 
-        key = 'phasers'
-        if key in d and d[key] > t:
+        elif self.test_word(d, key, 'phasers'):
             self.nao.say('fire when ready')
 
-        key = 'tractor beam'
-        if key in d and d[key] > t:
+        elif self.test_word(d, key, 'tractor'):
             self.nao.say('engage and pull them in')
 
-        key = 'hailing'
-        if key in d and d[key] > t:
+        elif self.test_word(d, key, 'hailing'):
             self.nao.say('bring up visuals')
 
-        key = 'torpedo'
-        if key in d and d[key] > t:
+        elif self.test_word(d, key, 'torpedo'):
             self.nao.say('shields up')
 
-        key = 'shields'
-        if key in d and d[key] > t:
+        elif self.test_word(d, key, 'shields'):
             self.nao.say('holding at 20 percent')
 
     def setup(self):

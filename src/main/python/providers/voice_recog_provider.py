@@ -4,6 +4,7 @@ Created on 5 June 2014
 @author: Don Najd
 @description: Provider for Naoqi Voice Recog
 '''
+from time import sleep
 
 class VoiceRecogProvider(object):
 
@@ -32,7 +33,10 @@ class VoiceRecogProvider(object):
             self.vocab += s.vocab
 
         # initial vocab
+        self.nao.env.speechRecognition.setAudioExpression(False)
+        self.nao.env.speechRecognition.setVisualExpression(False)
         self.nao.env.speechRecognition.setVocabulary(self.vocab, True)
+
 
         self.memory.subscribeToEvent('WordRecognized', self.event_callback)
         self.nao.log('class=VoiceRecogProvider|method=setup')  
@@ -56,4 +60,5 @@ class VoiceRecogProvider(object):
             for s in self.subscribers:
                 s.callback(naoqi_dataName, naoqi_value, naoqi_message)
 
+            sleep(2)
             self.running = False 

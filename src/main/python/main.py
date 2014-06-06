@@ -31,7 +31,7 @@ from providers.voice_recog_provider import VoiceRecogProvider
 #########################
 # Broker
 
-naoIp = "192.168.2.11" #"nao.local"
+naoIp = "192.168.2.8" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
@@ -77,6 +77,7 @@ def tear_down(dataName, value, message):
 		time_provider.tear_down()
 		face_recog_provider.tear_down()
 		voice_recog_provider.tear_down()
+
 	
 memory.subscribeToEvent('RearTactilTouched', tear_down)
 
