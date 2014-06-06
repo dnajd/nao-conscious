@@ -18,18 +18,20 @@ from subscribers.laugh_subscriber import LaughSubscriber
 from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
 from subscribers.greeting_subscriber import GreetingSubscriber
+from subscribers.star_trek_subscriber import StarTrekSubscriber
 
 # providers
 from providers.touch_provider import TouchProvider
 from providers.time_provider import TimeProvider
 from providers.face_recog_provider import FaceRecogProvider
+from providers.voice_recog_provider import VoiceRecogProvider
 
 
 
 #########################
 # Broker
 
-naoIp = "192.168.2.8" #"nao.local"
+naoIp = "192.168.2.11" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
@@ -49,11 +51,13 @@ laugh_subscriber = LaughSubscriber(nao)
 sleepy_subscriber = SleepySubscriber(nao)
 look_around_subscriber = LookAroundSubscriber(nao)
 greeting_subscriber = GreetingSubscriber(nao)
+star_trek_subscriber = StarTrekSubscriber(nao)
 
 # providers
 time_provider = TimeProvider(nao)
 touch_provider = TouchProvider(nao, memory, 'FrontTactilTouched')
 face_recog_provider = FaceRecogProvider(nao, memory)
+voice_recog_provider = VoiceRecogProvider(nao, memory)
 # RightBumperPressed, LeftBumperPressed, ChestButtonPressed, FrontTactilTouched
 # MiddleTactilTouched, RearTactilTouched, HandRightBackTouched, HandRightLeftTouched
 
@@ -61,6 +65,20 @@ face_recog_provider = FaceRecogProvider(nao, memory)
 
 #########################
 # HELPERS
+
+
+# shutdown with rear tactil
+def tear_down(dataName, value, message):
+
+	if value==1:
+
+		# teardown
+		touch_provider.tear_down()	
+		time_provider.tear_down()
+		face_recog_provider.tear_down()
+		voice_recog_provider.tear_down()
+	
+memory.subscribeToEvent('RearTactilTouched', tear_down)
 
 # setup all providers
 def setup():
@@ -78,18 +96,12 @@ def setup():
 	face_recog_provider.add_subscriber(greeting_subscriber)
 	face_recog_provider.setup()
 
+	# voice recog
+	voice_recog_provider.add_subscriber(star_trek_subscriber)
+	voice_recog_provider.setup()
+
 setup()
 
-
-# shutdown with rear tactil
-def tear_down(dataName, value, message):
-
-	# teardown
-	touch_provider.tear_down()	
-	time_provider.tear_down()
-	face_recog_provider.tear_down()
-	
-memory.subscribeToEvent('RearTactilTouched', tear_down)
 
 
 # learn face helper
@@ -98,6 +110,3 @@ def learn_face(name):
 	nao.env.add_proxy("ALFaceDetection")   
 	face_detect = nao.env.proxies["ALFaceDetection"] 
 	face_detect.learnFace(name)
-
-
-

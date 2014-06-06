@@ -18,10 +18,10 @@ class StarTrekSubscriber(object):
 
     def callback(self, eventName, value, subscriberIdentifier):
 
-        self.nao.log('class=StarTrekSubscriber|method=callback')
+        self.nao.log('class=StarTrekSubscriber|method=callback|value=' + str(value))
 
         d = value
-        t = 50
+        t = 0.48
 
         key = 'comander data'
         if key in d and d[key] > t:
