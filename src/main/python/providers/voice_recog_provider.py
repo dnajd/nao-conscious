@@ -49,16 +49,19 @@ class VoiceRecogProvider(object):
 
         if self.running == False:
 
-            # zip into dictionary; {phrase: confidence}
-            naoqi_value = dict(zip(naoqi_value[0::2], naoqi_value[1::2]))
-
             # status
             self.running = True
             self.nao.log('class=VoiceRecogProvider|method=event_callback|action=call_subscribers')  
-            
+
+            # zip into dictionary; {phrase: confidence}
+            naoqi_value = dict(zip(naoqi_value[0::2], naoqi_value[1::2]))
+
             # call subscribers
             for s in self.subscribers:
                 s.callback(naoqi_dataName, naoqi_value, naoqi_message)
 
-            sleep(2)
+            sleep(1)
+            self.nao.log('class=VoiceRecogProvider|method=event_callback|action=call_subscribers_complete')  
             self.running = False 
+
+            

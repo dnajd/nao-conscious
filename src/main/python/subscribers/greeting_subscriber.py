@@ -17,6 +17,9 @@ class GreetingSubscriber(object):
         # subscriber properties  
         self.greetings = ['Greetings', 'Hello','Hello there','Hey','Hi','Hi there','How are you','How are you doing','Howdy','Hows it going','Salutations','Whats up']
 
+        self.nao.env.add_proxy("ALFaceTracker")           
+        self.facetracker = self.nao.env.proxies["ALFaceTracker"] 
+
     def callback(self, eventName, value, subscriberIdentifier):
         
         # name?
@@ -31,8 +34,13 @@ class GreetingSubscriber(object):
 
                     # greet
                     if person.recognize_count==1 or person.recog_more_than_mins(5):
+
+                        # make time based face tracker
+                        self.facetracker.startTracker()    
                         person.count_this_greeting()
                         self.nao.say(self.rand_greeting() + ' ' + person.name)
+                        self.nao.wait(3)
+                        self.facetracker.stopTracker()   
 
 
     def setup(self):

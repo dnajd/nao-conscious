@@ -17,7 +17,7 @@ class StarTrekSubscriber(object):
 
     def test_word(self, dict, key, word):
 
-        t = 0.44 # confidence
+        t = 0.5 # confidence
         if key == word and dict[key] > t:
             return True
         return False
@@ -32,7 +32,11 @@ class StarTrekSubscriber(object):
         
         # test words
         if self.test_word(d, key, 'data'):
-            self.nao.say('i am commander data')
+            self.nao.say('i am commander data how can I help you')
+            self.nao.hands.left_open()
+            self.nao.wait(.5)
+            self.nao.hands.right_open().go()
+            self.nao.hands.close().go()
 
         elif self.test_word(d, key, 'phasers'):
             self.nao.say('fire when ready')

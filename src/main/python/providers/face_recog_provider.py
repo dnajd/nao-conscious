@@ -38,8 +38,6 @@ class FaceRecogProvider(object):
         # face track
         self.nao.env.motion.setStiffnesses("Head", 1.0)
 
-        # make time based face tracker
-        #self.facetracker.startTracker()    
 
     def tear_down(self):
         self.memory.unsubscribeToEvent('FaceDetected')
@@ -47,7 +45,6 @@ class FaceRecogProvider(object):
 
         # face track
         self.nao.env.motion.setStiffnesses("Head", 0)
-        #self.facetracker.stopTracker()   
 
     def event_callback(self, naoqi_dataName, naoqi_value, naoqi_message): 
       

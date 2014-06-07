@@ -19,6 +19,7 @@ from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
 from subscribers.greeting_subscriber import GreetingSubscriber
 from subscribers.star_trek_subscriber import StarTrekSubscriber
+from subscribers.voice_movement_subscriber import VoiceMovementSubscriber
 
 # providers
 from providers.touch_provider import TouchProvider
@@ -52,6 +53,7 @@ sleepy_subscriber = SleepySubscriber(nao)
 look_around_subscriber = LookAroundSubscriber(nao)
 greeting_subscriber = GreetingSubscriber(nao)
 star_trek_subscriber = StarTrekSubscriber(nao)
+voice_movement_subscriber = VoiceMovementSubscriber(nao)
 
 # providers
 time_provider = TimeProvider(nao)
@@ -99,6 +101,7 @@ def setup():
 
 	# voice recog
 	voice_recog_provider.add_subscriber(star_trek_subscriber)
+	voice_recog_provider.add_subscriber(voice_movement_subscriber)
 	voice_recog_provider.setup()
 
 setup()
