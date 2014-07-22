@@ -60,7 +60,7 @@ class VoiceRecogProvider(object):
             for s in self.subscribers:
                 s.callback(naoqi_dataName, naoqi_value, naoqi_message)
 
-            sleep(1)
+            sleep(2)
             self.nao.log('class=VoiceRecogProvider|method=event_callback|action=call_subscribers_complete')  
             self.running = False 
 

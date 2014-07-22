@@ -13,7 +13,7 @@ class VoiceMovementSubscriber(object):
 
         self.nao = nao 
         self.nao.log('class=VoiceMovementSubscriber|method=__init__')
-        self.vocab = ['hands open', 'hands closed', 'arms forward', 'sit down', 'relax', 'want this', 'drop it', 'hold it', 'cancel', 'reset system']
+        self.vocab = ['hands open', 'hands closed', 'arms forward', 'sit down', 'relax', 'want this', 'drop it', 'hold it', 'cancel', 'reset system', 'blue', 'red']
 
     def test_word(self, dict, key, word):
 
@@ -67,6 +67,13 @@ class VoiceMovementSubscriber(object):
         elif self.test_word(d, key, 'reset system'):
             self.nao.stiff()
             self.nao.sit()
+            self.nao.leds.eyes(0x38B0DE, .3)
+
+        elif self.test_word(d, key, 'red'):
+            self.nao.leds.eyes(0xcc0000, .3)
+            self.nao.leds.chest(0xcc0000, 1)    
+
+        elif self.test_word(d, key, 'blue'):
             self.nao.leds.eyes(0x38B0DE, .3)
 
     def setup(self):
