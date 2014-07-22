@@ -99,9 +99,9 @@ def setup():
 	face_recog_provider.setup()
 
 	# voice recog
-	voice_recog_provider.add_subscriber(star_trek_subscriber)
-	voice_recog_provider.add_subscriber(voice_movement_subscriber)
-	voice_recog_provider.setup()
+	#voice_recog_provider.add_subscriber(star_trek_subscriber)
+	#voice_recog_provider.add_subscriber(voice_movement_subscriber)
+	#voice_recog_provider.setup()
 
 setup()
 

@@ -36,11 +36,11 @@ class GreetingSubscriber(object):
                     if person.recognize_count==1 or person.recog_more_than_mins(5):
 
                         # make time based face tracker
-                        self.facetracker.startTracker()    
+                        #self.facetracker.startTracker()    
                         person.count_this_greeting()
                         self.nao.say(self.rand_greeting() + ' ' + person.name)
                         self.nao.wait(3)
-                        self.facetracker.stopTracker()   
+                        #self.facetracker.stopTracker()   
 
 
     def setup(self):

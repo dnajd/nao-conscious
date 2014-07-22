@@ -36,7 +36,7 @@ class VoiceRecogProvider(object):
         self.nao.env.speechRecognition.setAudioExpression(False)
         self.nao.env.speechRecognition.setVisualExpression(False)
         self.nao.env.speechRecognition.setVocabulary(self.vocab, True)
-
+        self.nao.env.speechRecognition.subscribe('VoiceRecogProvider')
 
         self.memory.subscribeToEvent('WordRecognized', self.event_callback)
         self.nao.log('class=VoiceRecogProvider|method=setup')  
