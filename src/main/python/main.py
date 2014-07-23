@@ -32,7 +32,7 @@ from providers.voice_recog_provider import VoiceRecogProvider
 #########################
 # Broker
 
-naoIp = "192.168.2.13" #"nao.local"
+naoIp = "192.168.2.12" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
@@ -73,6 +73,7 @@ voice_recog_provider = VoiceRecogProvider(nao, memory)
 def tear_down(dataName, value, message):
 
 	if value==1:
+		nao.say('shutdown brain')
 
 		# teardown
 		touch_provider.tear_down()	
@@ -99,9 +100,9 @@ def setup():
 	face_recog_provider.setup()
 
 	# voice recog
-	#voice_recog_provider.add_subscriber(star_trek_subscriber)
-	#voice_recog_provider.add_subscriber(voice_movement_subscriber)
-	#voice_recog_provider.setup()
+	voice_recog_provider.add_subscriber(star_trek_subscriber)
+	voice_recog_provider.add_subscriber(voice_movement_subscriber)
+	voice_recog_provider.setup()
 
 setup()
 

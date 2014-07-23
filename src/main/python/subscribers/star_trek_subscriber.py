@@ -13,7 +13,7 @@ class StarTrekSubscriber(object):
 
         self.nao = nao 
         self.nao.log('class=StarTrekSubscriber|method=__init__')
-        self.vocab = ['data', 'phasers', 'tractor', 'hailing', 'torpedo', 'shields']
+        self.vocab = ['commander data', 'fire phasers', 'tractor', 'hail ship', 'fire torpedo', 'shields']
 
     def test_word(self, dict, key, word):
 

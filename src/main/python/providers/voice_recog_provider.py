@@ -32,13 +32,22 @@ class VoiceRecogProvider(object):
         for s in self.subscribers:
             self.vocab += s.vocab
 
-        # initial vocab
+        # disable audio & visual expression
         self.nao.env.speechRecognition.setAudioExpression(False)
         self.nao.env.speechRecognition.setVisualExpression(False)
-        self.nao.env.speechRecognition.setVocabulary(self.vocab, True)
-        self.nao.env.speechRecognition.subscribe('VoiceRecogProvider')
 
+        # disable autonomous moves
+        self.nao.env.add_proxy("ALAutonomousMoves")
+        autonomous_moves = self.nao.env.proxies["ALAutonomousMoves"] 
+        autonomous_moves.setExpressiveListeningEnabled(False)
+
+        # init vocab
+        self.nao.env.speechRecognition.setVocabulary(self.vocab, False)
+        #self.nao.env.speechRecognition.subscribe('VoiceRecogProvider')
+
+        # subscribe event
         self.memory.subscribeToEvent('WordRecognized', self.event_callback)
+        
         self.nao.log('class=VoiceRecogProvider|method=setup')  
 
     def tear_down(self):
