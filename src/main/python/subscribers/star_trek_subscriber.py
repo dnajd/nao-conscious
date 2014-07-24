@@ -17,7 +17,7 @@ class StarTrekSubscriber(object):
 
     def test_word(self, dict, key, word):
 
-        t = 0.5 # confidence
+        t = 0.45 # confidence
         if key == word and dict[key] > t:
             return True
         return False
@@ -31,26 +31,26 @@ class StarTrekSubscriber(object):
         key = max(d, key=d.get)
         
         # test words
-        if self.test_word(d, key, 'data'):
+        if self.test_word(d, key, self.vocab[0]):
             self.nao.say('i am commander data how can I help you')
             self.nao.hands.left_open()
             self.nao.wait(.5)
             self.nao.hands.right_open().go()
             self.nao.hands.close().go()
 
-        elif self.test_word(d, key, 'phasers'):
+        elif self.test_word(d, key, self.vocab[1]):
             self.nao.say('fire when ready')
 
-        elif self.test_word(d, key, 'tractor'):
+        elif self.test_word(d, key, self.vocab[2]):
             self.nao.say('engage and pull them in')
 
-        elif self.test_word(d, key, 'hailing'):
+        elif self.test_word(d, key, self.vocab[3]):
             self.nao.say('bring up visuals')
 
-        elif self.test_word(d, key, 'torpedo'):
+        elif self.test_word(d, key, self.vocab[4]):
             self.nao.say('shields up')
 
-        elif self.test_word(d, key, 'shields'):
+        elif self.test_word(d, key, self.vocab[5]):
             self.nao.say('holding at 20 percent')
 
     def setup(self):

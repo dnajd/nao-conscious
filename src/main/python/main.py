@@ -78,7 +78,7 @@ voice_recog_provider = VoiceRecogProvider(nao, memory)
 def tear_down(dataName, value, message):
 
 	if value==1:
-		nao.say('shutdown brain')
+		nao.sit_say('Rest_1', 'Deactivate')
 
 		# teardown
 		touch_provider.tear_down()	

@@ -23,12 +23,12 @@ class SleepySubscriber(object):
 
             
             if elapsed_sec == 10.0:
-                self.nao.say('its good to be alive')
+                self.nao.sit_say('Think_3', 'its good to be alive')
                 self.nao.log('class=SleepySubscriber|method=callback|action=wake|elapsed_sec=' + str(elapsed_sec))
                 self.wake_yet = True
 
             if elapsed_sec == (60.0 * 30):
-                self.nao.say('I am getting sleepy')
+                self.nao.sit_say('Yawn_1','I am getting sleepy')
                 self.nao.log('class=SleepySubscriber|method=callback|action=tired|elapsed_sec=' + str(elapsed_sec))
 
 

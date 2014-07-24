@@ -38,7 +38,8 @@ class GreetingSubscriber(object):
                         # make time based face tracker
                         #self.facetracker.startTracker()    
                         person.count_this_greeting()
-                        self.nao.say(self.rand_greeting() + ' ' + person.name)
+                        statement = self.rand_greeting() + ' ' + person.name
+                        self.nao.sit_say('AskForAttention_1', statement)
                         self.nao.wait(3)
                         #self.facetracker.stopTracker()   
 

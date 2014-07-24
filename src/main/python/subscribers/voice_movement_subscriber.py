@@ -17,7 +17,7 @@ class VoiceMovementSubscriber(object):
 
     def test_word(self, dict, key, word):
 
-        t = 0.40 # confidence
+        t = 0.45 # confidence
         if key == word and dict[key] > t:
             return True
         return False
@@ -70,11 +70,10 @@ class VoiceMovementSubscriber(object):
             self.nao.leds.eyes(0x38B0DE, .3)
 
         elif self.test_word(d, key, 'red'):
-            self.nao.leds.eyes(0xcc0000, .3)
             self.nao.leds.chest(0xcc0000, 1)    
 
         elif self.test_word(d, key, 'blue'):
-            self.nao.leds.eyes(0x38B0DE, .3)
+            self.nao.leds.chest(0x38B0DE, .3)
 
     def setup(self):
         self.nao.log('class=VoiceMovementSubscriber|method=setup')
