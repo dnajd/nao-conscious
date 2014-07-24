@@ -21,6 +21,7 @@ from subscribers.sleepy_subscriber import SleepySubscriber
 from subscribers.look_around_subscriber import LookAroundSubscriber
 from subscribers.greeting_subscriber import GreetingSubscriber
 from subscribers.star_trek_subscriber import StarTrekSubscriber
+from subscribers.sensitive_subscriber import SensitiveSubscriber
 
 # providers
 from providers.touch_provider import TouchProvider
@@ -106,6 +107,12 @@ class TestSubscribers(unittest.TestCase):
 		# test subscriber
 		subscriber = StarTrekSubscriber(self.nao)
 		subscriber.callback('', value, '')
+
+	def testSensitiveSubscriber(self):
+
+		# test subscriber
+		subscriber = SensitiveSubscriber(self.nao)
+		subscriber.callback('', '', '')
 
 
 if __name__ == "__main__":

@@ -20,12 +20,15 @@ from subscribers.look_around_subscriber import LookAroundSubscriber
 from subscribers.greeting_subscriber import GreetingSubscriber
 from subscribers.star_trek_subscriber import StarTrekSubscriber
 from subscribers.voice_movement_subscriber import VoiceMovementSubscriber
+from subscribers.sensitive_subscriber import SensitiveSubscriber
 
 # providers
 from providers.touch_provider import TouchProvider
 from providers.time_provider import TimeProvider
 from providers.face_recog_provider import FaceRecogProvider
 from providers.voice_recog_provider import VoiceRecogProvider
+from providers.voice_emotion_provider import VoiceEmotionProvider
+
 
 
 
@@ -54,12 +57,14 @@ look_around_subscriber = LookAroundSubscriber(nao)
 greeting_subscriber = GreetingSubscriber(nao)
 star_trek_subscriber = StarTrekSubscriber(nao)
 voice_movement_subscriber = VoiceMovementSubscriber(nao)
+#sensitive_subscriber = SensitiveSubscriber(nao)
 
 # providers
 time_provider = TimeProvider(nao)
 touch_provider = TouchProvider(nao, memory, 'FrontTactilTouched')
 face_recog_provider = FaceRecogProvider(nao, memory)
 voice_recog_provider = VoiceRecogProvider(nao, memory)
+#voice_emotion_provider = VoiceEmotionProvider(nao, memory)
 # RightBumperPressed, LeftBumperPressed, ChestButtonPressed, FrontTactilTouched
 # MiddleTactilTouched, RearTactilTouched, HandRightBackTouched, HandRightLeftTouched
 
@@ -104,6 +109,11 @@ def setup():
 	voice_recog_provider.add_subscriber(voice_movement_subscriber)
 	voice_recog_provider.setup()
 
+	# voice emotion
+	#voice_emotion_provider.add_subscriber(sensitive_subscriber)
+	#voice_emotion_provider.setup()
+
+# trigger setup
 setup()
 
 

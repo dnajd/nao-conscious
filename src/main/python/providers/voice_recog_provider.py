@@ -34,7 +34,7 @@ class VoiceRecogProvider(object):
 
         # disable audio & visual expression
         self.nao.env.speechRecognition.setAudioExpression(False)
-        self.nao.env.speechRecognition.setVisualExpression(False)
+        self.nao.env.speechRecognition.setVisualExpression(True)
 
         # disable autonomous moves
         self.nao.env.add_proxy("ALAutonomousMoves")
@@ -43,7 +43,6 @@ class VoiceRecogProvider(object):
 
         # init vocab
         self.nao.env.speechRecognition.setVocabulary(self.vocab, False)
-        #self.nao.env.speechRecognition.subscribe('VoiceRecogProvider')
 
         # subscribe event
         self.memory.subscribeToEvent('WordRecognized', self.event_callback)
