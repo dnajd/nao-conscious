@@ -35,7 +35,7 @@ from providers.voice_emotion_provider import VoiceEmotionProvider
 #########################
 # Broker
 
-naoIp = "192.168.2.12" #"nao.local"
+naoIp = "192.168.2.10" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
@@ -93,7 +93,7 @@ def setup():
 	
 	# time: sleepy & look around
 	time_provider.add_subscriber(sleepy_subscriber)
-	time_provider.add_subscriber(look_around_subscriber)
+	#time_provider.add_subscriber(look_around_subscriber)
 	time_provider.setup()
 
 	# tactile: laugh
@@ -114,9 +114,7 @@ def setup():
 	#voice_emotion_provider.setup()
 
 # trigger setup
-setup()
-
-
+#setup()
 
 # learn face helper
 def learn_face(name):
@@ -124,3 +122,40 @@ def learn_face(name):
 	nao.env.add_proxy("ALFaceDetection")   
 	face_detect = nao.env.proxies["ALFaceDetection"] 
 	face_detect.learnFace(name)
+
+
+def load():
+	dialog.setLanguage(language)
+
+	# http://doc.aldebaran.com/2-1/naoqi/audio/dialog/aldialog_tuto.html#aldialog-tuto
+	topic = dialog.loadTopic(dialog_path)
+	dialog.subscribe(mod_name)
+	dialog.activateTopic(topic)
+
+	return topic
+
+# unload
+def unload():
+	dialog.deactivateTopic(topic)
+	dialog.unloadTopic(topic)
+	dialog.unsubscribe(mod_name)
+
+# global stuff
+mod_name = "nao-conscious"
+language = "English"
+dialog_path = "/home/nao/topics/test.top"
+nao.env.add_proxy("ALDialog")   
+dialog = nao.env.proxies["ALDialog"] 
+
+
+# disable audio & visual expression
+nao.env.speechRecognition.setAudioExpression(False)
+nao.env.speechRecognition.setVisualExpression(True)
+
+# disable autonomous moves
+nao.env.add_proxy("ALAutonomousMoves")
+autonomous_moves = nao.env.proxies["ALAutonomousMoves"] 
+autonomous_moves.setExpressiveListeningEnabled(False)
+
+# run
+topic = load()
