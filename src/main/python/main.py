@@ -125,20 +125,27 @@ def learn_face(name):
 
 
 def load():
+	# set lang and confidence
 	dialog.setLanguage(language)
+	dialog.setASRConfidenceThreshold(.4)
 
-	# http://doc.aldebaran.com/2-1/naoqi/audio/dialog/aldialog_tuto.html#aldialog-tuto
+	# load topic
 	topic = dialog.loadTopic(dialog_path)
+
+	# start
 	dialog.subscribe(mod_name)
 	dialog.activateTopic(topic)
+	dialog.startPush()
 
 	return topic
 
 # unload
 def unload():
+	dialog.stopPush()
 	dialog.deactivateTopic(topic)
 	dialog.unloadTopic(topic)
 	dialog.unsubscribe(mod_name)
+	exit()
 
 # global stuff
 mod_name = "nao-conscious"
