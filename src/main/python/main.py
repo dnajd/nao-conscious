@@ -126,7 +126,6 @@ def learn_face(name):
 
 def load():
 	# set lang and confidence
-	dialog.setLanguage(language)
 	dialog.setASRConfidenceThreshold(.4)
 
 	# load topic
@@ -149,7 +148,6 @@ def unload():
 
 # global stuff
 mod_name = "nao-conscious"
-language = "English"
 dialog_path = "/home/nao/topics/test.top"
 nao.env.add_proxy("ALDialog")   
 dialog = nao.env.proxies["ALDialog"] 
