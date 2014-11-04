@@ -124,45 +124,45 @@ def learn_face(name):
 	face_detect.learnFace(name)
 
 
-def load():
-	# set lang and confidence
-	dialog.setLanguage(language)
-	dialog.setASRConfidenceThreshold(.4)
-
-	# load topic
-	topic = dialog.loadTopic(dialog_path)
-
-	# start
-	dialog.subscribe(mod_name)
-	dialog.activateTopic(topic)
-	dialog.startPush()
-
-	return topic
-
-# unload
-def unload():
-	dialog.stopPush()
-	dialog.deactivateTopic(topic)
-	dialog.unloadTopic(topic)
-	dialog.unsubscribe(mod_name)
-	exit()
+#def load():
+#	# set lang and confidence
+#	dialog.setLanguage(language)
+#	dialog.setASRConfidenceThreshold(.3)
+#
+#	# load topic
+#	topic = dialog.loadTopic(dialog_path)
+#
+#	# start
+#	dialog.subscribe(mod_name)
+#	dialog.activateTopic(topic)
+#	dialog.startPush()
+#
+#	return topic
+#
+## unload
+#def unload():
+#	dialog.stopPush()
+#	dialog.deactivateTopic(topic)
+#	dialog.unloadTopic(topic)
+#	dialog.unsubscribe(mod_name)
+#	exit()
 
 # global stuff
-mod_name = "nao-conscious"
-language = "English"
-dialog_path = "/home/nao/topics/test.top"
-nao.env.add_proxy("ALDialog")   
-dialog = nao.env.proxies["ALDialog"] 
+#mod_name = "interview"
+#language = "English"
+#dialog_path = "/home/nao/topics/interview.top"
+#nao.env.add_proxy("ALDialog")   
+#dialog = nao.env.proxies["ALDialog"] 
 
 
 # disable audio & visual expression
-nao.env.speechRecognition.setAudioExpression(False)
-nao.env.speechRecognition.setVisualExpression(True)
+#nao.env.speechRecognition.setAudioExpression(False)
+#nao.env.speechRecognition.setVisualExpression(True)
 
 # disable autonomous moves
-nao.env.add_proxy("ALAutonomousMoves")
-autonomous_moves = nao.env.proxies["ALAutonomousMoves"] 
-autonomous_moves.setExpressiveListeningEnabled(False)
+#nao.env.add_proxy("ALAutonomousMoves")
+#autonomous_moves = nao.env.proxies["ALAutonomousMoves"] 
+#autonomous_moves.setExpressiveListeningEnabled(False)
 
 # run
-topic = load()
+#topic = load()
