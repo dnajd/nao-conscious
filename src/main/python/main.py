@@ -35,7 +35,7 @@ from providers.voice_emotion_provider import VoiceEmotionProvider
 #########################
 # Broker
 
-naoIp = "192.168.2.10" #"nao.local"
+naoIp = "192.168.2.9" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 
@@ -114,7 +114,7 @@ def setup():
 	#voice_emotion_provider.setup()
 
 # trigger setup
-setup()
+#setup()
 
 # learn face helper
 def learn_face(name):
@@ -131,26 +131,23 @@ def load():
 
 	# load topic
 	topic = dialog.loadTopic(dialog_path)
-
-	# start
-	dialog.subscribe(mod_name)
 	dialog.activateTopic(topic)
-	dialog.startPush()
+	dialog.subscribe(topic)
+	#dialog.startPush()
 
 	return topic
 
 # unload
 def unload():
-	dialog.stopPush()
 	dialog.deactivateTopic(topic)
 	dialog.unloadTopic(topic)
-	dialog.unsubscribe(mod_name)
-	exit()
+	dialog.unsubscribe(topic)
+	#undialog.stopPush()
 
 # global stuff
 mod_name = "interview"
 language = "English"
-dialog_path = "/home/nao/topics/interview.top"
+dialog_path = "/home/nao/topics/startrek.top"
 nao.env.add_proxy("ALDialog")   
 dialog = nao.env.proxies["ALDialog"] 
 
