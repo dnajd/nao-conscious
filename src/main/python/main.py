@@ -127,16 +127,12 @@ def setup():
 #setup()
 
 
-
-
-
-
 #########################
 # Experimenting with Dialog
 def load():
 
 	# load topic
-	topic = dialog.loadTopic("/home/nao/topics/startrek.top")
+	topic = nao.dialog.loadTopic("/home/nao/topics/startrek.top")
 	nao.dialog.activateTopic(topic)
 	nao.dialog.subscribe(topic)
 	#dialog.startPush()
@@ -145,10 +141,10 @@ def load():
 
 # unload
 def unload():
-	dialog.deactivateTopic(topic)
-	dialog.unloadTopic(topic)
-	dialog.unsubscribe(topic)
+	nao.dialog.deactivateTopic(topic)
+	nao.dialog.unloadTopic(topic)
+	nao.dialog.unsubscribe(topic)
 	#undialog.stopPush()
 
 # run
-#topic = load()
+topic = load()
