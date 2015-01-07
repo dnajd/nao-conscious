@@ -89,7 +89,6 @@ def tear_down():
 
 # sigint
 def tear_down_signal_handler(signal, frame):
-    print('You pressed Ctrl+C!')
     tear_down()
     sys.exit(0)
 
@@ -98,7 +97,6 @@ signal.signal(signal.SIGINT, tear_down_signal_handler)
 # tactil
 def tear_down_tactil_handler(dataName, value, message):
 	if value==1:
-		nao.sit_say('Rest_1', 'Deactivate')
 		tear_down()
 
 memory.subscribeToEvent('RearTactilTouched', tear_down_tactil_handler)
@@ -125,10 +123,6 @@ def setup():
 	voice_recog_provider.add_subscriber(voice_movement_subscriber)
 	voice_recog_provider.setup()
 
-	# voice emotion
-	#voice_emotion_provider.add_subscriber(sensitive_subscriber)
-	#voice_emotion_provider.setup()
-
 # trigger setup
 #setup()
 
@@ -140,14 +134,11 @@ def setup():
 #########################
 # Experimenting with Dialog
 def load():
-	# set lang and confidence
-	dialog.setLanguage(language)
-	dialog.setASRConfidenceThreshold(.3)
 
 	# load topic
-	topic = dialog.loadTopic(dialog_path)
-	dialog.activateTopic(topic)
-	dialog.subscribe(topic)
+	topic = dialog.loadTopic("/home/nao/topics/startrek.top")
+	nao.dialog.activateTopic(topic)
+	nao.dialog.subscribe(topic)
 	#dialog.startPush()
 
 	return topic
@@ -158,13 +149,6 @@ def unload():
 	dialog.unloadTopic(topic)
 	dialog.unsubscribe(topic)
 	#undialog.stopPush()
-
-# global stuff
-mod_name = "interview"
-language = "English"
-dialog_path = "/home/nao/topics/startrek.top"
-nao.env.add_proxy("ALDialog")   
-dialog = nao.env.proxies["ALDialog"] 
 
 # run
 #topic = load()
