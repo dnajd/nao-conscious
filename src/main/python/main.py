@@ -3,9 +3,12 @@ Created on 1 April 2014
 @author: Don Najd
 @description: Nao will be Sociable
 '''
-
 # python
 from __future__ import print_function
+
+# SIGINT
+import signal
+import sys
 
 # naoutil & fluentnao
 from naoutil import broker
@@ -30,14 +33,11 @@ from providers.voice_recog_provider import VoiceRecogProvider
 from providers.voice_emotion_provider import VoiceEmotionProvider
 
 
-
-
 #########################
 # Broker
 
 naoIp = "192.168.2.9" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
-
 
 #########################
 # FluentNao
@@ -45,6 +45,11 @@ broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 env = naoenv.make_environment(None)
 log = lambda msg: print(msg) 				# lambda for loggin to the console
 nao = Nao(env, log)
+
+# disable autonomous moves
+nao.env.add_proxy("ALAutonomousMoves")
+autonomous_moves = nao.env.proxies["ALAutonomousMoves"] 
+autonomous_moves.setExpressiveListeningEnabled(False)
 
 
 #########################
@@ -57,38 +62,49 @@ look_around_subscriber = LookAroundSubscriber(nao)
 greeting_subscriber = GreetingSubscriber(nao)
 star_trek_subscriber = StarTrekSubscriber(nao)
 voice_movement_subscriber = VoiceMovementSubscriber(nao)
-#sensitive_subscriber = SensitiveSubscriber(nao)
 
 # providers
 time_provider = TimeProvider(nao)
 touch_provider = TouchProvider(nao, memory, 'FrontTactilTouched')
 face_recog_provider = FaceRecogProvider(nao, memory)
 voice_recog_provider = VoiceRecogProvider(nao, memory)
-#voice_emotion_provider = VoiceEmotionProvider(nao, memory)
+
+# sensors
 # RightBumperPressed, LeftBumperPressed, ChestButtonPressed, FrontTactilTouched
 # MiddleTactilTouched, RearTactilTouched, HandRightBackTouched, HandRightLeftTouched
 
 
 
 #########################
-# HELPERS
+# Tear Down
+def tear_down():
+	nao.sit_say('Rest_1', 'Deactivate')
 
+	# teardown
+	touch_provider.tear_down()	
+	time_provider.tear_down()
+	face_recog_provider.tear_down()
+	voice_recog_provider.tear_down()
+	memory.unsubscribeToEvent('RearTactilTouched')  
 
-# shutdown with rear tactil
-def tear_down(dataName, value, message):
+# sigint
+def tear_down_signal_handler(signal, frame):
+    print('You pressed Ctrl+C!')
+    tear_down()
+    sys.exit(0)
 
+signal.signal(signal.SIGINT, tear_down_signal_handler)
+	
+# tactil
+def tear_down_tactil_handler(dataName, value, message):
 	if value==1:
 		nao.sit_say('Rest_1', 'Deactivate')
+		tear_down()
 
-		# teardown
-		touch_provider.tear_down()	
-		time_provider.tear_down()
-		face_recog_provider.tear_down()
-		voice_recog_provider.tear_down()
-	
-memory.subscribeToEvent('RearTactilTouched', tear_down)
+memory.subscribeToEvent('RearTactilTouched', tear_down_tactil_handler)
 
-# setup all providers
+#########################
+# Setup Nao Conscious
 def setup():
 	
 	# time: sleepy & look around
@@ -116,14 +132,13 @@ def setup():
 # trigger setup
 #setup()
 
-# learn face helper
-def learn_face(name):
-	# facetracker
-	nao.env.add_proxy("ALFaceDetection")   
-	face_detect = nao.env.proxies["ALFaceDetection"] 
-	face_detect.learnFace(name)
 
 
+
+
+
+#########################
+# Experimenting with Dialog
 def load():
 	# set lang and confidence
 	dialog.setLanguage(language)
@@ -151,15 +166,5 @@ dialog_path = "/home/nao/topics/startrek.top"
 nao.env.add_proxy("ALDialog")   
 dialog = nao.env.proxies["ALDialog"] 
 
-
-# disable audio & visual expression
-nao.env.speechRecognition.setAudioExpression(False)
-nao.env.speechRecognition.setVisualExpression(True)
-
-# disable autonomous moves
-nao.env.add_proxy("ALAutonomousMoves")
-autonomous_moves = nao.env.proxies["ALAutonomousMoves"] 
-autonomous_moves.setExpressiveListeningEnabled(False)
-
 # run
-topic = load()
+#topic = load()
