@@ -34,13 +34,13 @@ from providers.voice_emotion_provider import VoiceEmotionProvider
 
 
 #########################
-# Broker
+# SETUP: Broker
 
-naoIp = "192.168.2.9" #"nao.local"
+naoIp = "192.168.2.8" #"nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 #########################
-# FluentNao
+# SETUP: FluentNao
 
 env = naoenv.make_environment(None)
 log = lambda msg: print(msg) 				# lambda for loggin to the console
@@ -53,7 +53,7 @@ autonomous_moves.setExpressiveListeningEnabled(False)
 
 
 #########################
-# Nao Consious
+# SETUP: Nao Consious
 
 # subscribers
 laugh_subscriber = LaughSubscriber(nao)
@@ -76,7 +76,7 @@ voice_recog_provider = VoiceRecogProvider(nao, memory)
 
 
 #########################
-# Tear Down
+# HELPER: tear down
 def tear_down():
 	nao.sit_say('Rest_1', 'Deactivate')
 
@@ -101,13 +101,15 @@ def tear_down_tactil_handler(dataName, value, message):
 
 memory.subscribeToEvent('RearTactilTouched', tear_down_tactil_handler)
 
+
+
 #########################
-# Setup Nao Conscious
+# HELPER: Example Nao Conscious
 def setup():
 	
 	# time: sleepy & look around
 	time_provider.add_subscriber(sleepy_subscriber)
-	#time_provider.add_subscriber(look_around_subscriber)
+	time_provider.add_subscriber(look_around_subscriber)
 	time_provider.setup()
 
 	# tactile: laugh
@@ -128,7 +130,7 @@ def setup():
 
 
 #########################
-# Experimenting with Dialog
+# HELPER: Experimenting with Dialog
 def load():
 
 	# load topic
@@ -147,4 +149,4 @@ def unload():
 	#undialog.stopPush()
 
 # run
-topic = load()
+#topic = load()
