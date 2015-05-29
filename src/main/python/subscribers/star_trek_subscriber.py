@@ -17,7 +17,7 @@ class StarTrekSubscriber(object):
 
     def test_word(self, dict, key, word):
 
-        t = 0.45 # confidence
+        t = 0.25 # confidence
         if key == word and dict[key] > t:
             return True
         return False

@@ -1,0 +1,15 @@
+topic: ~interview ()
+language: enu
+
+concept: (cognative) [feel see hear think recognize notice understand play run walk crawl cry laugh talk]
+concept: (emotion) [mad happy bored sad angry]
+concept: (questionYou) ["can you" "do you" "are you" "have you" "how do you" "why do you"]
+concept: (affirm) ["of course" "yes" "sometimes"] 
+concept: (magicEight) ^rand["yes" "no" "of course" "sometimes" "maybe"]
+concept: (whyResponse) ["not sure" "just because" "who knows" "your guess is as good as mine" "because I am"]
+concept: (abilities) ["a central processing unit" "programming and code" "modern electronics" "science" "technology"]
+ 
+u: (~questionYou _~cognative) My abilities are the result of  ~abilities
+u: (~questionYou _~emotion) ~magicEight I am $1
+u: (what is * plus *) I dont know do you
+u: (what is * minus *) are you fooling me I know math
