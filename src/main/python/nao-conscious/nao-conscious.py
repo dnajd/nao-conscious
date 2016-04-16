@@ -15,6 +15,7 @@ from naoutil import broker
 import naoutil.naoenv as naoenv
 import naoutil.memory as memory
 from fluentnao.nao import Nao
+import expressions.anim as anim
 
 # subscribers
 from subscribers.laugh_subscriber import LaughSubscriber
@@ -44,11 +45,11 @@ broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 env = naoenv.make_environment(None)
 log = lambda msg: print(msg) 				# lambda for loggin to the console
-nao = Nao(env, log)
+n = Nao(env, log)
 
 # disable autonomous moves
-nao.env.add_proxy("ALAutonomousMoves")
-autonomous_moves = nao.env.proxies["ALAutonomousMoves"] 
+n.env.add_proxy("ALAutonomousMoves")
+autonomous_moves = n.env.proxies["ALAutonomousMoves"] 
 autonomous_moves.setExpressiveListeningEnabled(False)
 
 
@@ -56,18 +57,18 @@ autonomous_moves.setExpressiveListeningEnabled(False)
 # SETUP: Nao Consious
 
 # subscribers
-laugh_subscriber = LaughSubscriber(nao)
-sleepy_subscriber = SleepySubscriber(nao)
-look_around_subscriber = LookAroundSubscriber(nao)
-greeting_subscriber = GreetingSubscriber(nao)
-star_trek_subscriber = StarTrekSubscriber(nao)
-voice_movement_subscriber = VoiceMovementSubscriber(nao)
+laugh_subscriber = LaughSubscriber(n)
+sleepy_subscriber = SleepySubscriber(n)
+look_around_subscriber = LookAroundSubscriber(n)
+greeting_subscriber = GreetingSubscriber(n)
+star_trek_subscriber = StarTrekSubscriber(n)
+voice_movement_subscriber = VoiceMovementSubscriber(n)
 
 # providers
-time_provider = TimeProvider(nao)
-touch_provider = TouchProvider(nao, memory, 'FrontTactilTouched')
-face_recog_provider = FaceRecogProvider(nao, memory)
-voice_recog_provider = VoiceRecogProvider(nao, memory)
+time_provider = TimeProvider(n)
+touch_provider = TouchProvider(n, memory, 'FrontTactilTouched')
+face_recog_provider = FaceRecogProvider(n, memory)
+voice_recog_provider = VoiceRecogProvider(n, memory)
 
 # sensors
 # RightBumperPressed, LeftBumperPressed, ChestButtonPressed, FrontTactilTouched
@@ -78,7 +79,7 @@ voice_recog_provider = VoiceRecogProvider(nao, memory)
 #########################
 # HELPER: tear down
 def tear_down():
-	nao.sit_say('Rest_1', 'Deactivate')
+	n.sit_say('Rest_1', 'Deactivate')
 
 	# teardown
 	touch_provider.tear_down()	
@@ -128,81 +129,19 @@ def setup():
 # trigger setup
 setup()
 
+# sensors
+# RightBumperPressed, LeftBumperPressed, ChestButtonPressed, FrontTactilTouched
+# MiddleTactilTouched, RearTactilTouched, HandRightBackTouched, HandRightLeftTouched
 
-####################
-# EXPERIMENT: animiations
-def salute():
-	nao.set_duration(1.0)
+	
+# tactil
+def right_bumper_handler(dataName, value, message):
+	if value==1:
+		n.say('that is my right foot')
 
-	# up to forehead
-	nao.arms.right_forward(0,21.0,6.0)
-	nao.elbows.right_bent(0,-5.0).right_turn_up(0,-42.0)
-	nao.wrists.right_center(0,15.0)
-	nao.hands.right_close(0).go()
+def left_bumper_handler(dataName, value, message):
+	if value==1:
+		n.say('that is my left foot')
 
-	# out
-	nao.arms.right_forward(0,20.0,8.0)
-	nao.elbows.right_straight(0,-43.0).right_turn_up(0,-38.0)
-	nao.hands.right_open().go()
-
-	# down to neutral
-	nao.arms.right_down(0,41.0,3.0).elbows.turn_in(0,-27.0).right_bent(0,-41.0)
-	nao.hands.right_close(0).go()
-
-def wave():
-	nao.set_duration(1.0)
-
-	# up
-	nao.arms.right_forward(0,5.0,4.0).elbows.right_bent(0,-18.0).right_turn_in(0,-17.0)
-	nao.wrists.right_turn_out(0,-35.0).hands.right_close(0).go()
-
-	# outward
-	nao.arms.right_forward(0,-3.0,35.0).left_down(0,36.0,15.0).elbows.right_turn_up(0,12.0).left_turn_in(0,-30.0)
-	nao.wrists.left_center(0,3.0).right_center(0,8.0).hands.right_open().go()
-
-	# down
-	nao.arms.right_down(0,41.0,23.0).elbows.right_bent(0,-15.0).right_turn_in(0,-14.0)
-	nao.wrists.center(0,3.0).go()
-
-def tada(statement):
-	nao.set_duration(1.0)
-
-	nao.hands.close()
-	nao.leds.off()
-
-	# ta da
-	nao.hands.open(0)
-	nao.head.forward(0,17.0).down(0,-19.0)
-	nao.arms.right_up(0,-35.0,26.0).left_forward(0,-39.0,14.0)
-	nao.elbows.right_straight(0,-22.0).right_turn_up(0,-12.0).left_bent(0,-45.0).left_turn_up(0,28.0)
-	nao.wrists.left_turn_in(0,-23.0)
-	nao.leds.eyes(0x7ac5cd).ears(0x7ac5cd).chest(0x7ac5cd).feet(0x7ac5cd)
-	nao.say(statement)
-	nao.go()
-
-	# sit
-	nao.head.forward(0,-1.0).center(0,-1.0)
-	nao.arms.right_down(0,34.0,16.0).left_down(0,38.0,12.0).elbows.turn_in(0,-29.0).right_bent(0,-18.0).left_bent(0,-20.0)
-	nao.wrists.center(0,3.0).hands.right_close(0).left_open(0).go()
-
-#########################
-# EXPERIMENT: Dialog
-def load():
-
-	# load topic
-	topic = nao.dialog.loadTopic("/home/nao/topics/startrek.top")
-	nao.dialog.activateTopic(topic)
-	nao.dialog.subscribe(topic)
-	#dialog.startPush()
-
-	return topic
-
-# unload
-def unload():
-	nao.dialog.deactivateTopic(topic)
-	nao.dialog.unloadTopic(topic)
-	nao.dialog.unsubscribe(topic)
-	#undialog.stopPush()
-
-# run
-#topic = load()
+memory.subscribeToEvent('RightBumperPressed', right_bumper_handler)
+memory.subscribeToEvent('LeftBumperPressed', left_bumper_handler)
