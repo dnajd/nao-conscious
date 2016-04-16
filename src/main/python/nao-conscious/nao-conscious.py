@@ -36,7 +36,7 @@ from providers.voice_emotion_provider import VoiceEmotionProvider
 #########################
 # SETUP: Broker
 
-naoIp = "192.168.2.8" #"nao.local"
+naoIp = "nao.local"
 broker.Broker('bootstrapBroker', naoIp=naoIp, naoPort=9559)
 
 #########################
@@ -126,7 +126,7 @@ def setup():
 	voice_recog_provider.setup()
 
 # trigger setup
-#setup()
+setup()
 
 
 ####################
