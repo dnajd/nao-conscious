@@ -25,6 +25,7 @@ class VoiceRecogProvider(object):
     def add_subscriber(self, subscriber):
         self.subscribers.append(subscriber)
         self.nao.log('class=VoiceRecogProvider|method=add_subscriber')  
+        return self
 
     def setup(self):
 

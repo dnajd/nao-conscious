@@ -25,7 +25,7 @@ class LookAroundSubscriber(object):
             elapsed_sec = round(float(value['elapsed_sec']))
 
             # chance
-            chance = random.randint(1,300)
+            chance = random.randint(1,20)
             if random.randint(1,chance) == 1:
 
                 # offset and duration

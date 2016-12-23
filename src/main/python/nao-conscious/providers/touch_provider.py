@@ -28,6 +28,7 @@ class TouchProvider(object):
     def add_subscriber(self, subscriber):
         self.subscribers.append(subscriber)
         self.nao.log('class=TouchedProvider|method=add_subscriber')  
+        return self
 
     def setup(self):
         self.memory.subscribeToEvent(self.eventName, self.event_callback)
